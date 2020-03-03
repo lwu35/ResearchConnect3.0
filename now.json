@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "alias": "www.researchconnect.me",
+  "name": "researchconnect",
+  "builds": [
+    { "src": "app/server.js", "use": "@now/node-server" },
+    {
+      "src": "app/frontend/package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "build" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "headers": { "cache-control": "s-maxage=31536000,immutable" },
+      "dest": "/app/frontend/static/$1"
+    },
+    { "src": "/favicon.png", "dest": "/app/frontend/favicon.png" },
+    { "src": "/asset-manifest.json", "dest": "/app/frontend/asset-manifest.json" },
+    { "src": "/manifest.json", "dest": "/app/frontend/manifest.json" },
+    { "src": "/precache-manifest.(.*)", "dest": "/app/frontend/precache-manifest.$1" },
+    {
+      "src": "/service-worker.js",
+      "headers": { "cache-control": "s-maxage=0" },
+      "dest": "/app/frontend/service-worker.js"
+    },
+    { "src": "/api/(.*)", "dest": "app/server.js" },
+    { "src": "/auth/google", "dest": "app/server.js" },
+    { "src": "/auth/google/(.*)", "dest": "app/server.js" },
+    { "src": "/(.*)", "dest": "/app/frontend/index.html" }
+  ],
+  "env": {
+    "MONGO_URL": "@research_connect_2_mongo_url",
+    "GOOGLE_CLIENT_ID": "@research_connect_2_google_client_id",
+    "GOOGLE_CLIENT_SECRET": "@research_connect_2_google_client_secret",
+    "COOKIE_KEY": "@research_connect_2_cookie_key",
+    "CLOUDINARY_CLOUD_NAME": "@research_connect_2_cloudinary_cloud_name",
+    "CLOUDINARY_API_KEY": "@research_connect_2_cloudinary_api_key",
+    "CLOUDINARY_API_SECRET": "@research_connect_2_cloudinary_api_secret",
+    "SENDGRID_API_KEY": "@research_connect_2_sendgrid_key"
+  }
+}
