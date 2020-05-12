@@ -85,7 +85,7 @@ class ResearchPost extends Component {
   }
 
   async goToApplicants() {
-    if (!this.props.auth.isProfessor || !(this.props.auth.cruzid === this.state.post.owner.cruzid)) {
+    if (!this.props.auth.isAdmin || !this.props.auth.isProfessor || !(this.props.auth.cruzid === this.state.post.owner.cruzid)) {
       return;
     }
 
@@ -123,10 +123,13 @@ class ResearchPost extends Component {
   }
 
   handleDelete() {
-    if (!this.props.auth.isProfessor || !(this.props.auth.cruzid === this.state.post.owner.cruzid)) {
-      return;
+    if (!this.props.auth.isAdmin) {
+      if (!this.props.auth.isProfessor || !(this.props.auth.cruzid === this.state.post.owner.cruzid)) {
+        return;
+      }
     }
-
+    
+    console.log('delete handler pressed----------');
     axios.delete(`/api/research_posts?id=${this.state.post._id}`)
       .then(res => this.props.history.push('/'))
       .catch((err) => {
@@ -135,11 +138,31 @@ class ResearchPost extends Component {
       });
   }
 
-  handleEdit() {
-    if (!this.props.auth.isProfessor || !(this.props.auth.cruzid === this.state.post.owner.cruzid)) {
-      return;
+  handleRemove() {
+    if (!this.props.auth.isAdmin) {
+      if (!this.props.auth.isProfessor || !(this.props.auth.cruzid === this.state.post.owner.cruzid)) {
+        return;
+      }
     }
+    
+    console.log('remove handler pressed----------');
+    axios.delete(`/api/research_posts/new?id=${this.state.post._id}`)
+      .then(res => this.props.history.push('/'))
+      .catch((err) => {
+        console.log(err);
+        alert('Failed to delete post');
+      });
+  }
 
+  handleEdit() {
+    if (!this.props.auth.isAdmin) {
+      if (!this.props.auth.isProfessor || !(this.props.auth.cruzid === this.state.post.owner.cruzid)) {
+        return;
+      }
+
+    }
+    
+    console.log('edit handler success');
     this.props.savePost(this.state.post);
     this.props.history.push('/new');
   }
@@ -268,27 +291,113 @@ class ResearchPost extends Component {
       <div className="section">
         <section className="container">
           <div className="columns">
-            <div className="column is-half is-offset-one-quarter" align="center">
-              <div className="circle-img">
-                <DepartmentImage type={this.state.post.department.type} />
-              </div>
+            <div className="column is-12" align="center">
+              <section class="hero is-primary">
+                <div class="hero-body">
+                  <div class="container">
+                    <div className="circle-img">
+                      <DepartmentImage type={this.state.post.department.type} />
+                    </div>
+                    <h1 class="title">
+                      {this.state.post.title}
+                    </h1>
+                    <h2 class="subtitle">
+                      <Link to={`/profile/${this.state.post.owner.cruzid}`}  className="subtitle">
+                        by <span className="has-text-black">{this.state.post.owner.name}</span>
+                      </Link>
+                    </h2> 
 
-              <br />
-
-              <h1 className="title" style={{ marginBottom: '0px' }}>{this.state.post.title}</h1>
-              <Link to={`/profile/${this.state.post.owner.cruzid}`}  className="subtitle">
-                by <span className="has-text-link">{this.state.post.owner.name}</span>
-              </Link>
-              <br /><br />
-              <div className="tags" style={{ display: 'flex', justifyContent: 'center' }}>
-                {this.state.post.tags.map(tag => (<span className="tag is-medium" key={tag}>{tag}</span>))}
-              </div>
+                    <br />
+                    <div className="tags" style={{ display: 'flex', justifyContent: 'center' }}>
+                      {this.state.post.tags.map(tag => (<span className="tag is-medium" key={tag}>{tag}</span>))}
+                    </div>             
+                  </div>
+                </div>
+              </section>
 
               <hr />
 
-              <div className="box">
-                <h2 className="subtitle is-uppercase is-size-7">Department</h2>
-                <h1 className="title is-5">{this.state.post.department.name}</h1>
+              <div className="columns">
+
+                <div className="column is-5">
+                  <div className="box" align="left" style={{height: "500px"}} >
+                    <div className="column is-full">
+                      <div className="box" style={{height: "440px"}}>
+                            <h2 className="title is-5 is-uppercase has-text-primary">Description:</h2>
+                          
+                            <h1 className="subtitle is-size-6" 
+                              style={{height: "330px", overflow:"auto"}}
+                            >
+                            <div dangerouslySetInnerHTML={{ __html: md.render(this.state.post.description) }} />
+                            </h1>
+                      </div>
+                    </div>
+                  </div>  
+                </div>
+
+                <div className="column is-7">
+                  <div className="box " align="left" style={{height: "500px"}}>
+
+                    <div className="column is-full">
+                      <div className="box">
+                        <div className="columns">
+                          <div className="column is-one-half">
+                            <h2 className="title is-5 is-uppercase has-text-primary">Status:</h2>
+                          </div>
+                          <div className="column">
+                            <h1 className="subtitle is-size-6">{this.state.post.status}</h1>
+                          </div>
+                        </div>                    
+                      </div>
+                    </div>
+
+                    <div className="column is-full">
+                      <div className="box">
+                        <div className="columns">
+                          <div className="column is-one-half">
+                            <h2 className="title is-5 is-uppercase has-text-primary">Department:</h2>
+                          </div>
+                          <div className="column">
+                            <h1 className="subtitle is-size-6">{this.state.post.department.name}</h1>
+                          </div>
+                        </div>                 
+                      </div>
+                    </div>
+
+                    <div className="column is-full">
+                      <div className="box">
+                        <div className="columns">
+                          <div className="column is-one-third">
+                            <h2 className="title is-5 is-uppercase has-text-primary">Required Skills:</h2>
+                          </div>
+                          <div className="column">
+                            <div className="tags" style={{ display: 'flex', justifyContent: 'left' }}>
+                              {this.state.post.reqSkills.map(skill => (<span className="tag is-normal is-primary" key={skill}>{skill}</span>))}
+                            </div>
+                          </div>
+                        </div>                
+                      </div>
+                    </div>
+
+                    <div className="column is-full">
+                      <div className="box">
+                        <div className="columns">
+                          <div className="column is-one-third">
+                            <h2 className="title is-5 is-uppercase has-text-primary">Preferred Skills:</h2>
+                          </div>
+                          <div className="column">
+                            <div className="tags" style={{ display: 'flex', justifyContent: 'left' }}>
+                              {this.state.post.prefSkills.map(skill => (<span className="tag is-normal is-primary" key={skill}>{skill}</span>))}
+                            </div>
+                          </div>
+                        </div>                    
+                      </div>
+                    </div>                
+
+                  </div>
+                </div>
+
+              
               </div>
 
               {/* <div className="box">
@@ -296,32 +405,7 @@ class ResearchPost extends Component {
                 <h1 className="title is-5">{this.state.post.summary}</h1>
               </div> */}
 
-              <div className="box">
-                <h2 className="subtitle is-uppercase is-size-7">Description</h2>
-                {/* {console.log(this.state.post.description)} */}
-                <h1 className="title is-5">
-                  <div dangerouslySetInnerHTML={{ __html: md.render(this.state.post.description) }} />
-                </h1>
-              </div>
-
-              <div className="box">
-                <h2 className="subtitle is-uppercase is-size-7">Required Skills</h2>
-                <div className="tags" style={{ display: 'flex', justifyContent: 'center' }}>
-                  {this.state.post.reqSkills.map(skill => (<span className="tag is-medium" key={skill}>{skill}</span>))}
-                </div>
-              </div>
-
-              <div className="box">
-                <h2 className="subtitle is-uppercase is-size-7">Preferred Skills</h2>
-                <div className="tags" style={{ display: 'flex', justifyContent: 'center' }}>
-                  {this.state.post.prefSkills.map(skill => (<span className="tag is-medium" key={skill}>{skill}</span>))}
-                </div>
-              </div>
-
-              <div className="box">
-                <h2 className="subtitle is-uppercase is-size-7">Status</h2>
-                <h1 className="title is-5">{this.state.post.status}</h1>
-              </div>
+              
             </div>
           </div>
           <div className="column" align="center">
@@ -336,16 +420,16 @@ class ResearchPost extends Component {
               {!this.props.auth.isProfessor && this.state.hasApplied && this.state.post.status === 'Open' &&
                 <button className="button is-success" disabled onClick={() => this.applyToPost()} style={{ marginLeft: "1em" }}>Applied</button>}
 
-              {this.props.auth.isProfessor && this.state.post.owner.cruzid === this.props.auth.cruzid && this.state.post.status === 'Open' &&
+              {((this.props.auth.isProfessor && this.state.post.owner.cruzid === this.props.auth.cruzid && this.state.post.status === 'Open')) &&
                 <button className="button is-warning" onClick={() => this.handleClose()} style={{ marginLeft: "1em" }}>Close</button>}
 
-              {this.props.auth.isProfessor && this.state.post.owner.cruzid === this.props.auth.cruzid && this.state.post.status === 'Closed' &&
+              {((this.props.auth.isProfessor && this.state.post.owner.cruzid === this.props.auth.cruzid && this.state.post.status === 'Closed')) &&
                 <button className="button is-warning" onClick={() => this.handleOpen()} style={{ marginLeft: "1em" }}>Open</button>}
 
-              {this.props.auth.isProfessor && (this.state.post.owner.cruzid === this.props.auth.cruzid) &&
-                <button className="button is-danger" onClick={() => this.handleDelete()} style={{ marginLeft: "1em" }}>Delete</button>}
+              {(this.props.auth.isAdmin || (this.props.auth.isProfessor && (this.state.post.owner.cruzid === this.props.auth.cruzid))) &&
+                <button className="button is-danger" onClick={() => this.handleRemove()} style={{ marginLeft: "1em" }}>Delete</button>}
 
-              {this.props.auth.isProfessor && (this.state.post.owner.cruzid === this.props.auth.cruzid) &&
+              {(this.props.auth.isAdmin || (this.props.auth.isProfessor && (this.state.post.owner.cruzid === this.props.auth.cruzid))) &&
                 <button className="button is-success" onClick={() => this.handleEdit()} style={{ marginLeft: "1em" }}>Edit</button>}
             </div>
           </div>

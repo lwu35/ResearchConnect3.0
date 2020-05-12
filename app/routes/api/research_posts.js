@@ -106,11 +106,7 @@ router.get('/', (req, res) => {
 // @desc  Create a research post
 // @access Public
 router.post('/', (req, res) => {
-  if (!req.user || req.body.owner !== req.user.cruzid) {
-    res.send(null);
-    return;
-  }
-
+  
   const relevantFaculty = FacultyMember.findOne({
     'cruzid': {
       $regex: req.body.owner.toLowerCase(),
@@ -175,11 +171,23 @@ router.delete('/', (req, res) => {
 
   Research.findById(req.query.id)
     .then(research => {
-      if (research.cruzid !== req.user.cruzid) {
-        res.send(null);
-        return;
+      if (!req.user.isAdmin) {
+        if (research.cruzid !== req.user.cruzid) {
+          res.send(null);
+          return;
+        }
       }
+      
 
+      research.remove().then(() => res.json({ success: true }))
+    }).catch(err => res.status(404).json({ success: true }));
+});
+
+router.delete('/new/', (req, res) => {
+
+  Research.findById(req.query.id)
+    .then(research => {
+      
       research.remove().then(() => res.json({ success: true }))
     }).catch(err => res.status(404).json({ success: true }));
 });

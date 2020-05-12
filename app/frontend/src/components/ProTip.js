@@ -1,10 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import * as actions from '../actions';
-import ProfessorCard from './ProfessorCard';
-import Spinner from './Spinner';
-
 
 export default class ProTip extends Component {
     constructor(props) {
@@ -32,13 +26,7 @@ export default class ProTip extends Component {
   }
 
   
-
   render() {
-    const { loading, posts } = this.state;
-    /* if (loading) {
-      return <Spinner fullPage />;
-    } */
-
     
     return (
         

@@ -42,7 +42,7 @@ class PostCard extends PureComponent {
         </div>
 
         <footer className="card-footer">
-          <Link className="card-footer-item has-text-success" to={`/post/${post.id}`}>
+          <Link className="card-footer-item has-text-primary" to={`/post/${post.id}`}>
             Learn More
           </Link>
         </footer>

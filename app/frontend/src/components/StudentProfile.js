@@ -123,28 +123,26 @@ class StudentProfile extends Component {
     }
 
     return (
+      
       <div id={this.props.profile.cruzid} className="container">
-        <div className="columns">
-          <div className="column is-half is-offset-3">
-            <div className="column" align="center">
-              <h1 align="center">
-                <div align="center">
-                  <figure className="image is-128x128">
-                    <img
-                      className="is-rounded"
-                      src={
-                        this.props.profile.profile_pic
-                          ? this.props.profile.profile_pic
-                          : profileImg
-                      }
-                      alt={this.props.profile.name}
-                      style={{height: "128px", width: "auto"}}
-                    />
-                  </figure>
-                </div>
-              </h1>
 
-              <hr />
+        <section class="hero is-primary">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                {this.props.profile.name}
+              </h1>
+              <h2 class="subtitle">
+                Student
+              </h2>              
+            </div>
+          </div>
+        </section>
+        
+        <div className="columns">
+          <div className="column is-12">
+            <div className="column" align="center">
+              
 
               {this.props.auth.isProfessor && (
                 <div className="columns">
@@ -189,49 +187,151 @@ class StudentProfile extends Component {
 
               <br />
 
-              <div className="box">
-                <h2 className="subtitle is-uppercase is-size-7">Name</h2>
-                <h1 className="title is-4">{this.props.profile.name ? this.props.profile.name : 'No Name Listed'}</h1>
-              </div>
+              <div className="columns">
+                <div className="column is-5">
+                  <div className="box " align="left" style={{height: "570px"}}>
 
-              <div className="box">
-                <h2 className="subtitle is-uppercase is-size-7">Email</h2>
-                <h1 className="title is-4">{this.props.profile.email ? this.props.profile.email : 'No Email Listed'}</h1>
-              </div>
+                  
+                  <h1 align="center">
+                    <div align="center">
+                      <figure className="image is-256x256">
+                        <img
+                          className="is-rounded"
+                          src={
+                            this.props.profile.profile_pic
+                            ? this.props.profile.profile_pic
+                            : profileImg
+                          }
+                          alt={this.props.profile.name}
+                          style={{height: "256px", width: "auto"}}
+                        />
+                        </figure>
+                      </div>
+                  </h1>
 
-              {<div className="box">
-                <h2 className="subtitle is-uppercase is-size-7">Major</h2>
-                <h1 className="title is-4">{this.props.student.major ? this.props.student.major : 'No Major Listed'}</h1>
-              </div>}
+                 
+                  <hr />
 
-              <div className="box">
-                <h2 className="subtitle is-uppercase is-size-7">Bio</h2>
-                <h1 className="title is-4">{this.props.profile.bio ? this.props.profile.bio : 'No Available Bio'}</h1>
-              </div>
+                    <div className="column is-full">
+                      <div className="box">
+                        <div className="columns">
+                          <div className="column is-three-quarter">
+                            <h2 className="title is-5 is-uppercase has-text-primary	">Gender:</h2>
+                          </div>
+                          <div className="column">
+                            <h1 className="subtitle is-size-5">{true ? "Male" : 'No Gender Listed'}</h1>
+                          </div>
 
-              {myProfile && this.props.auth && (
-                <div className="box">
-                  <div>
-                    <h2 className="subtitle is-uppercase is-size-7" style={{ marginBottom: '0px' }}>Upload Resume</h2>
-                    <ResumeForm
-                      onSubmit={data => this.uploadResume(data.file)}
-                    />
+                        </div>
+                      
+                      </div>
+                    </div>
+
+                    <div className="column is-full">
+                      <div className="box">
+                        <div className="columns">
+                          <div className="column is-three-quarter">
+                            <h2 className="title is-5 is-uppercase has-text-primary	">Year:</h2>
+                          </div>
+                          <div className="column">
+                            <h1 className="subtitle is-size-5">{true ? "Senior" : 'No Year Listed'}</h1>
+                          </div>
+
+                        </div>
+                      
+                      </div>
+                    </div>
+  
+                  
+                   
+               
                   </div>
                 </div>
-              )}
+                
+                <div className="column is-7">
+                  <div className="box" align="left" style={{height: "570px"}} >
 
-              <div>
-                <a
-                  href={this.props.resume}
-                  className="button is-info"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  download={`${this.props.profile.name}_Resume.pdf`}
-                  disabled={!this.props.resume}
-                >
-                  {this.props.resume ? 'Download Resume' : 'No Resume Available'}
-                </a>
+                    <div className="column is-full">
+                      <div className="box">
+                        <div className="columns">
+                          <div className="column is-one-quarter">
+                            <h2 className="title is-5 is-uppercase has-text-primary	">Bio:</h2>
+                          </div>
+                          <div className="column">
+                            <h1 className="subtitle is-size-5" 
+                              style={{overflow:"auto"}}
+                            >{this.props.profile.bio ? this.props.profile.bio : 'No Available Bio'}</h1>
+                          </div>
+
+                        </div>
+                      
+                      </div>
+                    </div>
+
+                    <div className="column is-full">
+                      <div className="box">
+                        <div className="columns">
+                          <div className="column is-one-quarter">
+                            <h2 className="title is-5 is-uppercase has-text-primary">Email:</h2>
+                          </div>
+                          <div className="column">
+                            <h1 className="subtitle is-size-5">{this.props.profile.email ? this.props.profile.email : 'No Email Listed'}</h1>
+                          </div>
+
+                        </div>
+                      
+                      </div>
+                    </div>
+
+                    <div className="column is-full">
+                      <div className="box">
+                        <div className="columns">
+                          <div className="column is-one-quarter">
+                            <h2 className="title is-5 is-uppercase has-text-primary">Major:</h2>
+                          </div>
+                          <div className="column">
+                            <h1 className="subtitle is-size-5">{this.props.profile.major ? this.props.profile.major : 'No Major Listed'}</h1>
+                          </div>
+
+                        </div>
+                      
+                      </div>
+                    </div>
+
+                    <div className="column is-full">
+                      {myProfile && this.props.auth && (
+                        <div className="box">
+                          <div className="columns">
+                            <div className="column is-one-quarter">
+                              <h1 className="title is-uppercase is-5 has-text-primary" style={{ marginBottom: '0px' }}>Upload Resume:</h1>
+                            </div>
+
+                            <div className="column">
+                            
+                              <ResumeForm
+                                onSubmit={data => this.uploadResume(data.file)}
+                              />
+                              <a
+                                href={this.props.resume}
+                                className="button is-info"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                download={`${this.props.profile.name}_Resume.pdf`}
+                                disabled={!this.props.resume}
+                              >
+                                {this.props.resume ? 'View Resume' : 'No Resume Available'}
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                  </div>  
+                </div>
+
               </div>
+              
             </div>
           </div>
         </div>

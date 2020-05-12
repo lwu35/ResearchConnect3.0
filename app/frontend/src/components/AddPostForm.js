@@ -24,7 +24,7 @@ class AddPostForm extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.post && this.props.post.owner.cruzid === this.props.auth.cruzid) {
+        if (this.props.post && (this.props.auth.isAdmin || (this.props.post.owner.cruzid === this.props.auth.cruzid))) {
             this.setState({
                 _id: this.props.post._id,
                 title: this.props.post.title,
@@ -207,10 +207,14 @@ class AddPostForm extends React.Component {
     getPrefSkills = () => this.state.prefSkills
 
     render() {
-        if (!this.props.auth.isProfessor) {
-            this.props.history.push('/');
-            return '';
+        if (!this.props.auth.isAdmin) {
+            if (!this.props.auth.isProfessor) {
+                this.props.history.push('/');
+                return '';
+            }
+
         }
+        
 
         const { departmentList } = this.state;
 

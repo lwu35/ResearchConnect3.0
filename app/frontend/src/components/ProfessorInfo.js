@@ -13,46 +13,29 @@ import PostCard from './PostCard';
 
 class Profile extends Component {
   
-
   constructor(props) {
     super(props);
 
     this.state = {
       profile: null,
       loading: false,
+      researchLoaded: false,
+      profileLoaded:false
     };
 
     this.setProfileStates();
-
-    
   }
 
   componentDidMount() {
+    this.setProfileStates();
+  }
+
+  componentDidUpdate() {
+    this.setProfileStates();
     
-    this.setProfileStates1();
-    console.log("test")
   }
 
-  setProfileStates = () => {
-    // Fetch and set user specific data to local states
-    axios
-      .get('/api/active_faculty_members/', {
-        params: {
-          cruzid: this.props.match.params.cruzid,
-        },
-      })
-      /* .then(response => this.setState({
-        profile: response.data,
-        
-        
-      })) */
-      .then(response => function(){
-        console.log(response)
-      })
-      .catch(error => console.log(error));
-  }
-
-  setProfileStates1() {
+  setProfileStates() {
     // Fetch and set user specific data to local states
     axios
       .get('/api/active_faculty_members/', {
@@ -62,34 +45,67 @@ class Profile extends Component {
       })
       .then(response => this.setState({
         profile: response.data,
-        
-        
+        profileLoaded: true,
+      }))
+      .catch(error => console.log(error));
+    
+    axios
+      .get('/api/search?type=cruzid&query=' + this.props.match.params.cruzid)
+      .then(response => this.setState({
+        research: response.data,
+        researchLoaded: true,
       }))
       .catch(error => console.log(error));
   }
 
   
+  fetchResearchPosts = () => {
+    const research_posts = this.state.research.map(research => (
+      <div key={research._id} className="box">
+        <h1 align="left">{`Title: ${research.title}`}</h1>
+        <br />
+        <h2 align="left">{`Summary: ${research.summary}`}</h2>
+        <br />
+        <Link className="card-footer-item info" to={`/post/${research._id}`}>Learn More</Link>
+      </div>
+    ));
 
+    return (
+      <ul>{research_posts}</ul>
+    );
+  }
+
+  formatPost(posts, mod, eq) {
+    return (
+      <React.Fragment>
+        {posts.filter((_, index) => (index % mod) === eq).map(post => (
+          <PostCard
+            key={post._id}
+            post={{
+              id: post._id,
+              type: post.department.type,
+              name: post.title,
+              professor: post.owner.name,
+              tags: post.tags,
+              summary: post.summary,
+              department: post.department.name,
+              ownerProfile: "/profile/" + post.owner.cruzid,
+              deadline: post.deadline,
+              date: new Date(post.deadline),
+              applicants: this.props.auth.isProfessor ? post.applicants.map(applicant => applicant.student ? applicant.student.cruzid : "") : null
+            }}
+          />
+        ))}
+      </React.Fragment>
+    )
+  }
   
-
 
   displayProfessorProfile() {
     const post = this.state.profile;
-    console.log(post);
-    if (post == null) {
-      return (
-        <InfoPage
-          
-          user={{
-            id:"asas",
-            
-          }}
-        />
-      );
-    }
+    
     return (
       <InfoPage
-        
         user={{
           id: post._id,
           profile_pic: post.pic,
@@ -99,23 +115,24 @@ class Profile extends Component {
           email: post.email,
           interest: post.interest,
           title: post.title,
-          pub: post.pub,
+          pub_name: post.pub_name,
+          pub_link: post.pub_link,
+          bio: post.bio,
+          office_location: post.office_location,
+          department: post.department,
+          contact: post.contact,
           pic: post.pic
         }}
       />
     );
   }
 
-  
-
-
   render() {
-    /* if (!this.state.profileLoaded || !this.state.userLoaded) {
+    if (!this.state.profileLoaded || !this.state.researchLoaded) {
       return <Spinner fullPage />;
-    } */
+    }
 
     const { research: posts } = this.state;
-    // console.log(posts)
 
     return (
       <section className="section">
@@ -132,18 +149,18 @@ class Profile extends Component {
             </TabPanel>
 
             <TabPanel>
-              {false ? (
+              {this.state.researchLoaded ? (
                 <div>
                   {posts.length ? (
                     <div className="columns is-multiline" style={{ paddingTop: '1em' }}>
                       <div className="column is-one-third">
-                        
+                        {this.formatPost(posts, 3, 0)}
                       </div>
                       <div className="column is-one-third">
-                        
+                        {this.formatPost(posts, 3, 1)}
                       </div>
                       <div className="column is-one-third">
-                        
+                        {this.formatPost(posts, 3, 2)}
                       </div>
                     </div>
                   ) : (

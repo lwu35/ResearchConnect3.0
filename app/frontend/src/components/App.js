@@ -21,6 +21,7 @@ import PageNotFound from './ErrorPage';
 import DisplayProfessor from './DisplayProfessor';
 import ProTip from './ProTip';
 import ProfessorInfo from './ProfessorInfo';
+import Admin from './Admin';
 
 NavLink.defaultProps.activeClassName = 'is-active';
 
@@ -86,6 +87,13 @@ class App extends Component {
               exact
               path="/pro_tip"
               component={ProTip}
+              loggedIn={this.props.auth}
+              accountSetup={this.props.auth.isSetup}
+            />
+            <PrivateRoute
+              exact
+              path="/admin"
+              component={Admin}
               loggedIn={this.props.auth}
               accountSetup={this.props.auth.isSetup}
             />
