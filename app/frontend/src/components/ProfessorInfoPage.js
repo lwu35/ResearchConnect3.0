@@ -76,17 +76,13 @@ class ProfessorInfoPage extends Component {
 
                     <div className="column is-full">
                       <div className="box">
-                        <div className="columns">
-                          <div className="column is-one-quarter">
+                        
                             <h2 className="title is-5 is-uppercase has-text-primary">Bio:</h2>
-                          </div>
-                          <div className="column">
-                            <h1 className="subtitle is-size-5" 
+                          
+                            <h1 className="subtitle is-size-6" 
                               style={{height: "300px", overflow:"auto"}}
                             >{user.bio ? user.bio : 'Sorry, the professor does not have a bio at this time. Check back later  (•◡•) /'}</h1>
-                          </div>
-
-                        </div>
+                          
                       
                       </div>
                     </div>
@@ -105,7 +101,7 @@ class ProfessorInfoPage extends Component {
                             <h2 className="title is-5 is-uppercase has-text-primary">Title:</h2>
                           </div>
                           <div className="column">
-                            <h1 className="subtitle is-size-5">{user.title ? user.title : 'No Title Listed'}</h1>
+                            <h1 className="subtitle is-size-6" align="right">{user.title ? user.title : 'No Title Listed'}</h1>
                           </div>
 
                         </div>
@@ -120,7 +116,7 @@ class ProfessorInfoPage extends Component {
                             <h2 className="title is-5 is-uppercase has-text-primary">Email:</h2>
                           </div>
                           <div className="column">
-                            <h1 className="subtitle is-size-5">{user.email ? user.email : 'No Email Listed'}</h1>
+                            <h1 className="subtitle is-size-6" align="right">{user.email ? user.email : 'No Email Listed'}</h1>
                           </div>
 
                         </div>
@@ -135,7 +131,7 @@ class ProfessorInfoPage extends Component {
                             <h2 className="title is-5 is-uppercase has-text-primary">Department:</h2>
                           </div>
                           <div className="column">
-                            <h1 className="subtitle is-size-5">{user.department ? user.department : 'No Department Listed'}</h1>
+                            <h1 className="subtitle is-size-6" align="right">{user.department ? user.department : 'No Department Listed'}</h1>
                           </div>
 
                         </div>
@@ -150,7 +146,7 @@ class ProfessorInfoPage extends Component {
                             <h2 className="title is-5 is-uppercase has-text-primary">Office Location:</h2>
                           </div>
                           <div className="column">
-                            <h1 className="subtitle is-size-5">{user.office_location ? user.office_location : 'No Office Location Listed'}</h1>
+                            <h1 className="subtitle is-size-6" align="right">{user.office_location ? user.office_location : 'No Office Location Listed'}</h1>
                           </div>
 
                         </div>
@@ -165,7 +161,7 @@ class ProfessorInfoPage extends Component {
                             <h2 className="title is-5 is-uppercase has-text-primary">Contact Preference:</h2>
                           </div>
                           <div className="column">
-                            <h1 className="subtitle is-size-5">{user.contact ? user.contact : 'No Contact Preference Listed'}</h1>
+                            <h1 className="subtitle is-size-6" align="right">{user.contact ? user.contact : 'No Contact Preference Listed'}</h1>
                           </div>
 
                         </div>
@@ -181,7 +177,7 @@ class ProfessorInfoPage extends Component {
 
               <div className="box">
                 <h2 className="title is-5 is-uppercase has-text-primary" align="left" >Publications</h2>
-                <h1 className="subtitle is-size-5">{user.pub_name ? 
+                <h1 className="subtitle is-size-6">{user.pub_name ? 
                 <div className="columns">
                   <div className="column is-10" align="left">
                   {this.displayPubName()}

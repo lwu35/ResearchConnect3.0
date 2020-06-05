@@ -5,27 +5,18 @@ export default class Landing extends Component {
   render() {
     return (
       <React.Fragment>
-        <section className="hero">
+        <section className="hero has-background-grey-light">
           <div className="hero-body is-medium">
             <div className="container">
               <div className="columns is-vcentered">
                 <div className="column is-half">
                   <h1 className="title is-size-1 has-text-primary">
-                    Connecting UCSC students & faculty to improve involvement in research.
+                    Connecting UCSC students & faculty to simplify connecting with eachother.
                   </h1>
-                  <a href="/auth/google" className="has-text-centered">
-                    <button
-                      style={{
-                      background: `url("${signinButton}")`, backgroundSize: 'cover', width: 196, height: 46, border: 'none', display: 'inline-block'
-                    }}
-                      className="button"
-                      onClick={this.signIn}
-                      title="Sign In"
-                    />
-                  </a>
+                  
                   <br /><br />
-                  <div className="subtitle is-size-7 is-uppercase has-text-centered">
-                    Scroll down to see how ResearchConnect can help you!
+                  <div className="subtitle is-size-7 is-uppercase ">
+                    We aim to help you find the right professor!
                   </div>
                 </div>
                 <div className="column is-half">
@@ -40,7 +31,7 @@ export default class Landing extends Component {
         <hr />
         <section className="section">
           <div className="container">
-            <div className="title">How it works</div>
+            <div className="title has-text-centered">How it works</div>
             <ul className="steps is-medium">
               <li className="step-item is-black is-active">
                 <div className="step-marker">
@@ -52,7 +43,7 @@ export default class Landing extends Component {
                   <p className="step-title">Step 1</p>
                   <p>
   Sign in with your
-                    <strong>@ucsc.edu</strong>
+                    <strong> @ucsc.edu</strong>
                     {' '}
   email with Google.
                   </p>
@@ -95,11 +86,11 @@ export default class Landing extends Component {
           </div>
         </section>
         <hr />
-        <section className="section">
+        <section className="section has-background-primary">
           <div className="container">
             <div className="columns is-vcentered">
               <div className="column is-one-third">
-                <h1 className="title is-uppercase">Professors</h1>
+                <h1 className="title is-uppercase"><img src="https://cdn4.iconfinder.com/data/icons/education-training-1/33/professor-3-512.png" alt="Professor" width="64" height="64"></img>Professors</h1>
               </div>
               <div className="column">
                 <div className="content is-large">
@@ -114,11 +105,11 @@ export default class Landing extends Component {
           </div>
         </section>
         <hr />
-        <section className="section">
+        <section className="section has-background-info">
           <div className="container">
             <div className="columns is-vcentered">
               <div className="column is-one-third">
-                <h1 className="title is-uppercase">Students</h1>
+                <h1 className="title is-uppercase"><img src="https://cdn3.iconfinder.com/data/icons/education-2-2/256/Student_Reading-512.png" alt="Student" width="64" height="64"></img>Students</h1>
               </div>
               <div className="column">
                 <div className="content is-large">
@@ -133,18 +124,18 @@ export default class Landing extends Component {
           </div>
         </section>
         <hr />
-        <section className="section">
+        <section className="section has-background-success">
           <div className="container">
             <div className="columns is-vcentered">
-              <div className="column is-one-third">
-                <h1 className="title is-uppercase">Grad Students</h1>
+              <div className="column is-half">
+                <h1 className="title is-uppercase"><img src="https://image.flaticon.com/icons/svg/67/67902.svg" alt="Grad Student" width="64" height="64"></img>Grad Students</h1>
               </div>
               <div className="column">
                 <div className="content is-large">
                   <ol style={{ wordBreak: 'break-word' }}>
                     <li>Have a project that you need help with? Easily find hundred of students looking for experience</li>
                     <li>Select the best students for your job, no more searching around or asking for referrals</li>
-                    <li>ResearchConnect is not limited to just research! If you want to host a seminar or form a group, ResearchConnect is a great place!</li>
+                    <li>Grad students are in need of research oppurtunities the most so we geared this app towards them as our primary audience</li>
                   </ol>
                 </div>
               </div>

@@ -183,13 +183,12 @@ router.delete('/', (req, res) => {
     }).catch(err => res.status(404).json({ success: true }));
 });
 
-router.delete('/new/', (req, res) => {
 
-  Research.findById(req.query.id)
-    .then(research => {
-      
-      research.remove().then(() => res.json({ success: true }))
-    }).catch(err => res.status(404).json({ success: true }));
+router.delete('/remove/:id', (req, res) => {
+  Research.findByIdAndRemove(req.params.id, function (err) {
+    if (err) return next(err);
+      res.send('Deleted successfully!');
+  })
 });
 
 module.exports = router;

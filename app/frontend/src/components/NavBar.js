@@ -226,13 +226,19 @@ class NavBar extends Component {
                     </NavLink>
               )}
               {/* added to link view professors */}
-              
+
               {this.props.auth && (
                 <NavLink className="navbar-item" to="/professor/all" onClick={this.close}>
                   Professors
                     </NavLink>
               )}
-              
+
+              {this.props.auth && (
+                <NavLink className="navbar-item" to="/forum" onClick={this.close}>
+                  Forum
+                    </NavLink>
+              )}
+
               {/* added to link view of pro tips */}
               {this.props.auth && !this.props.auth.isProfessor && (
                 <NavLink className="navbar-item" to="/pro_tip" onClick={this.close}>

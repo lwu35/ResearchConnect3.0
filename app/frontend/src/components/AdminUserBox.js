@@ -33,10 +33,6 @@ class AdminUserBox extends PureComponent {
                             {user.name}
                         </Link>
                         <h1 className="subtitle is-size-7">{user.isProfessor ? 'Faculty' : 'Student'}</h1>
-                     
-                        
-                        
-                            
                         
                     </div>
                     <div className="column is-one-quarter">

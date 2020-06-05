@@ -126,13 +126,13 @@ class StudentProfile extends Component {
       
       <div id={this.props.profile.cruzid} className="container">
 
-        <section class="hero is-primary">
-          <div class="hero-body">
-            <div class="container">
-              <h1 class="title">
+        <section className="hero is-primary">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">
                 {this.props.profile.name}
               </h1>
-              <h2 class="subtitle">
+              <h2 className="subtitle">
                 Student
               </h2>              
             </div>
@@ -219,7 +219,7 @@ class StudentProfile extends Component {
                             <h2 className="title is-5 is-uppercase has-text-primary	">Gender:</h2>
                           </div>
                           <div className="column">
-                            <h1 className="subtitle is-size-5">{true ? "Male" : 'No Gender Listed'}</h1>
+                            <h1 className="subtitle is-size-6" align="right">{true ? "Male" : 'No Gender Listed'}</h1>
                           </div>
 
                         </div>
@@ -234,7 +234,7 @@ class StudentProfile extends Component {
                             <h2 className="title is-5 is-uppercase has-text-primary	">Year:</h2>
                           </div>
                           <div className="column">
-                            <h1 className="subtitle is-size-5">{true ? "Senior" : 'No Year Listed'}</h1>
+                            <h1 className="subtitle is-size-6" align="right">{true ? "Senior" : 'No Year Listed'}</h1>
                           </div>
 
                         </div>
@@ -242,9 +242,6 @@ class StudentProfile extends Component {
                       </div>
                     </div>
   
-                  
-                   
-               
                   </div>
                 </div>
                 
@@ -258,7 +255,7 @@ class StudentProfile extends Component {
                             <h2 className="title is-5 is-uppercase has-text-primary	">Bio:</h2>
                           </div>
                           <div className="column">
-                            <h1 className="subtitle is-size-5" 
+                            <h1 className="subtitle is-size-6" 
                               style={{overflow:"auto"}}
                             >{this.props.profile.bio ? this.props.profile.bio : 'No Available Bio'}</h1>
                           </div>
@@ -275,7 +272,7 @@ class StudentProfile extends Component {
                             <h2 className="title is-5 is-uppercase has-text-primary">Email:</h2>
                           </div>
                           <div className="column">
-                            <h1 className="subtitle is-size-5">{this.props.profile.email ? this.props.profile.email : 'No Email Listed'}</h1>
+                            <h1 className="subtitle is-size-6" align="right">{this.props.profile.email ? this.props.profile.email : 'No Email Listed'}</h1>
                           </div>
 
                         </div>
@@ -290,7 +287,7 @@ class StudentProfile extends Component {
                             <h2 className="title is-5 is-uppercase has-text-primary">Major:</h2>
                           </div>
                           <div className="column">
-                            <h1 className="subtitle is-size-5">{this.props.profile.major ? this.props.profile.major : 'No Major Listed'}</h1>
+                            <h1 className="subtitle is-size-6" align="right">{this.props.profile.major ? this.props.profile.major : 'No Major Listed'}</h1>
                           </div>
 
                         </div>

@@ -42,7 +42,7 @@ router.get('/testlist', async (req, res) => {
 
 router.get('/pages', async (req, res) => {
   // destructure page and limit and set default values
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 25 } = req.query;
 
   try {
     // execute query with page and limit values

@@ -5,10 +5,8 @@ import profileImg from '../assets/profile.png';
 
 class AdminResearchBox extends PureComponent {
     removePost(test) {
-        console.log('remove handler pressed----------');
         
-        console.log(test);
-        axios.delete(`/api/research_posts?id=${test}`)
+        axios.delete(`/api/research_posts/remove/${test}`)
           .then(window.location.reload(false))
           .catch((err) => {
             console.log(err);
@@ -18,12 +16,9 @@ class AdminResearchBox extends PureComponent {
       }
 
     
-
-    
   render() {
     const { research } = this.props;
     
-
     return (
         <div className="column is-full">
             <div className="box">

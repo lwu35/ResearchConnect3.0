@@ -22,6 +22,9 @@ import DisplayProfessor from './DisplayProfessor';
 import ProTip from './ProTip';
 import ProfessorInfo from './ProfessorInfo';
 import Admin from './Admin';
+import StudentForum from './StudentForum';
+import NewForum from './NewForumPost';
+import ForumPostInfo from './ForumPostInfo'
 
 NavLink.defaultProps.activeClassName = 'is-active';
 
@@ -75,6 +78,13 @@ class App extends Component {
               loggedIn={this.props.auth}
               accountSetup={this.props.auth.isSetup}
             />
+             <PrivateRoute
+              exact
+              path="/new/forum"
+              component={NewForum}
+              loggedIn={this.props.auth}
+              accountSetup={this.props.auth.isSetup}
+            />
             {/* added to test the professor display*/}
             <PrivateRoute
               exact
@@ -87,6 +97,20 @@ class App extends Component {
               exact
               path="/pro_tip"
               component={ProTip}
+              loggedIn={this.props.auth}
+              accountSetup={this.props.auth.isSetup}
+            />
+            <PrivateRoute
+              exact
+              path="/forum"
+              component={StudentForum}
+              loggedIn={this.props.auth}
+              accountSetup={this.props.auth.isSetup}
+            />
+            <PrivateRoute
+              exact
+              path="/forum/:id"
+              component={ForumPostInfo}
               loggedIn={this.props.auth}
               accountSetup={this.props.auth.isSetup}
             />

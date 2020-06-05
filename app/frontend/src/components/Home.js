@@ -47,6 +47,7 @@ class Home extends Component {
     return this.setState({
       posts: filteredPosts,
     });
+    window.location.reload(false)
   }
 
   componentDidMount() {
